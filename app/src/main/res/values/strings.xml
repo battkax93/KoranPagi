@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Koran Pagi</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="tabTitle">
+        <item>GAME</item>
+        <item>HIBURAN</item>
+        <item>MUSIK</item>
+        <item>TEKNOLOGI</item>
+        <item>OLAHRAGA</item>
+    </string-array>
+
+</resources>
