@@ -6,13 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 
 import sunny.koranpagi.R
+import sunny.koranpagi.entity.NewsGames
 import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
+import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
+import sunny.koranpagi.rest.NewsApi
 
-class GamingFragment : Fragment(), ContractBaseFragment.mainView {
+class GamingFragment : Fragment(), ContractBaseFragment.mainGameView {
 
     lateinit var pbar: ProgressBar
+    lateinit var api: NewsApi
+
+    lateinit var present: ContractBaseFragment.mainPresent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +34,22 @@ class GamingFragment : Fragment(), ContractBaseFragment.mainView {
     }
 
     override fun init(v: View) {
-        pbar = v.findViewById(R.id.mainProgressbar)
+        api = NewsApi()
+        pbar = v.findViewById(R.id.mainProgressBar)
+        present = PresentBaseFragment(this)
     }
 
     override fun action() {
+        present.getNewsGames(api,requireContext(),"id","gaming")
     }
 
-    override fun updateUI() {
+    override fun updateUI(it: NewsGames) {
+        if(it.status == "ok"){
+            Toast.makeText(requireContext(),"succes",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(),"fail",Toast.LENGTH_SHORT).show()
+
+        }
     }
 
     override fun showLoading() {

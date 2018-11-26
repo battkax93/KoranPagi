@@ -3,7 +3,7 @@ package sunny.koranpagi.entity
 import com.google.gson.annotations.SerializedName
 
 
-data class news(
+data class NewsHiburan(
         @SerializedName("status") val status: String,
         @SerializedName("totalResults") val totalResults: Int,
         @SerializedName("articles") val articles: List<Article>
