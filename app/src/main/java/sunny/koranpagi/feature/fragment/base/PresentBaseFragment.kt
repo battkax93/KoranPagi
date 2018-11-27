@@ -32,6 +32,16 @@ class PresentBaseFragment : ContractBaseFragment.mainPresent {
     }
 
     override fun getTechNews(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String) {
+        RxBus.publish("loading")
+        api.services.getTechnoNews(country, category, APIKEYS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    RxBus.publish(busEventKey)
+                    RxBus.publish(it)
+                }, {
+                    it.printStackTrace()
+                })
     }
 
     override fun getSportNews(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String) {

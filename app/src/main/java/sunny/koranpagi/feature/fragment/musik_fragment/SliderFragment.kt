@@ -9,14 +9,6 @@ import android.view.ViewGroup
 import sunny.koranpagi.R
 import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [SliderFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [SliderFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -83,7 +83,7 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
 
     override fun action() {
         Log.d("FLOW", "Ent.action")
-        present.getHiburanNews(api, requireContext(), "id", "entertainment", Constant.HiburanFragmentBus)
+        present.getTechNews(api, requireContext(), "id", "entertainment", Constant.HiburanFragmentBus)
     }
 
     override fun updateUI(it: NewsHiburan) {

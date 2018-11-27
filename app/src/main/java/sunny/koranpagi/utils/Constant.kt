@@ -16,6 +16,6 @@ class Constant {
         const val HiburanFragmentBus = "HiburanBusEvent"
         const val MusicFragmentBus = "MusicBusEvent"
         const val SportFragmentBus = "SportBusEvent"
-        const val technoFragmentBus = "TechnoBusEvent"
+        const val TechnoFragmentBus = "TechnoBusEvent"
     }
 }

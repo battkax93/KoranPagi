@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import sunny.koranpagi.entity.NewsGames
 import sunny.koranpagi.entity.NewsHiburan
+import sunny.koranpagi.entity.NewsTechno
 import sunny.koranpagi.rest.NewsApi
 
 /**
@@ -48,7 +49,8 @@ interface ContractBaseFragment {
     interface mainTeknologiView {
         fun init(v: View)
         fun action()
-        fun updateUI()
+        fun listenEvent()
+        fun updateUI(it: NewsTechno)
         fun showLoading()
         fun hideLoading()
     }
