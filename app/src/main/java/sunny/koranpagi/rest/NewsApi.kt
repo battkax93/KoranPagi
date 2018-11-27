@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
  * Created by Wayan-MECS on 11/26/2018.
  */
 class NewsApi {
-    lateinit var category: String
+
     private val gson = GsonBuilder().create()!!
     var retrofit: Retrofit = getClient()
 

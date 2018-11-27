@@ -10,22 +10,23 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.custom_tab.*
 import sunny.koranpagi.R
-import sunny.koranpagi.R.id.*
 import sunny.koranpagi.adapter.TabLayoutAdapter
+import sunny.koranpagi.feature.fragment.musik_fragment.SliderFragment
+import sunny.koranpagi.utils.RxBus
 
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
         trySetup()
+        loadFragment()
     }
 
     fun init() {
         val fragAdapter = TabLayoutAdapter(supportFragmentManager)
-        viewpager.offscreenPageLimit = 8
+        viewpager.offscreenPageLimit = 3
         viewpager.adapter = fragAdapter
         viewpager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -41,8 +42,16 @@ class MainActivity : AppCompatActivity() {
 
         tablayout.setupWithViewPager(viewpager)
         tablayout.setTabTextColors(Color.GRAY, Color.BLACK)
-        tablayout.tabGravity = scrollable
-        tablayout.tabMode = fixed
+//        tablayout.tabGravity = fill_horizontal
+//        tablayout.tabMode = center
+
+        RxBus.listen(String::class.java).subscribe({
+            if (it == "tablayout|up") {
+//                tablayout.visibility = View.GONE
+            } else {
+//                tablayout.visibility = View.VISIBLE
+            }
+        })
 
     }
 
@@ -64,6 +73,14 @@ class MainActivity : AppCompatActivity() {
             setupViewPager()
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    fun loadFragment() {
+        if (supportFragmentManager.findFragmentById(R.id.slider_news) == null) {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.slider_news, SliderFragment())
+                    .commit()
         }
     }
 }
