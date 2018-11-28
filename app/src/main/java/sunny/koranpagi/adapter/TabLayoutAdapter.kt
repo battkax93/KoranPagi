@@ -18,8 +18,6 @@ class TabLayoutAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
         return when (position) {
             0 -> EntertainmentFragment()
             1 -> TechnologyFragment()
-            2 -> SportFragment()
-            3 -> TechnologyFragment()
             else -> SportFragment()
         }
     }
@@ -28,8 +26,6 @@ class TabLayoutAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
         return when (position) {
             0 -> "HIBURAN"
             1 -> "TEKNOLOGI"
-            2 -> "OLAHRAGA"
-            3 -> "TEKNOLOGI"
             else -> "OLAHRAGA"
         }
     }

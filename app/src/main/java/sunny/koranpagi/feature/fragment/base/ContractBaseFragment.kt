@@ -4,7 +4,10 @@ import android.content.Context
 import android.view.View
 import sunny.koranpagi.entity.NewsGames
 import sunny.koranpagi.entity.NewsHiburan
+import sunny.koranpagi.entity.NewsSport
 import sunny.koranpagi.entity.NewsTechno
+import sunny.koranpagi.feature.fragment.game_fragment.EntertainmentFragment
+import sunny.koranpagi.feature.fragment.teknologi_fragment.TechnologyFragment
 import sunny.koranpagi.rest.NewsApi
 
 /**
@@ -41,7 +44,8 @@ interface ContractBaseFragment {
     interface mainOlahragaView {
         fun init(v: View)
         fun action()
-        fun updateUI()
+        fun listenEvent()
+        fun updateUI(it: NewsSport)
         fun showLoading()
         fun hideLoading()
     }
@@ -57,9 +61,9 @@ interface ContractBaseFragment {
 
     interface mainPresent {
         fun getNewsGames(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String)
-        fun getHiburanNews(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String)
+        fun getHiburanNews(api: NewsApi, country: String, category: String, busEventKey: String)
         fun getMusikNews(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String)
-        fun getTechNews(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String)
-        fun getSportNews(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String)
+        fun getTechNews(api: NewsApi, country: String, category: String, busEventKey: String)
+        fun getSportNews(api: NewsApi, country: String, category: String, busEventKey: String)
     }
 }

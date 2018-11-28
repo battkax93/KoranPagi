@@ -24,6 +24,7 @@ import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
 import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
 import sunny.koranpagi.rest.NewsApi
 import sunny.koranpagi.utils.Constant
+import sunny.koranpagi.utils.MessageEventHiburan
 import sunny.koranpagi.utils.RxBus
 
 
@@ -53,11 +54,12 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        action()
         listenEvent()
-        action()
     }
 
     override fun init(v: View) {
+        Log.d("FLOW", "Ent.Init")
         api = NewsApi()
         pbar = v.findViewById(R.id.mainProgressBar)
         rv = v.findViewById(R.id.rv_hiburan)
@@ -83,26 +85,29 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
 
     override fun action() {
         Log.d("FLOW", "Ent.action")
-        present.getTechNews(api, requireContext(), "id", "entertainment", Constant.HiburanFragmentBus)
+        present.getHiburanNews(api, "id", "entertainment", Constant.HiburanFragmentBus)
     }
 
     override fun updateUI(it: NewsHiburan) {
+        Log.d("FLOW", "Ent.UpdateUI")
         if (it.status == "ok") {
             Toast.makeText(requireContext(), "succes", Toast.LENGTH_SHORT).show()
             Log.d("FLOW", it.status)
 
             newsss = it
-            Log.d("flow", "updateUi")
             val layoutManager12 = LinearLayoutManager(context)
 //            val layoutManager12 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = NewsHiburanAdapter(requireContext(), newsss.articles)
             rv.layoutManager = layoutManager12
             rv.adapter = adapter
             adapter.notifyDataSetChanged()
+
             if (swp.isRefreshing) swp.isRefreshing = false
         } else {
             Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
         }
+//        present.getTechNews(api, "id", "technology", Constant.TechnoFragmentBus)
+
     }
 
     override fun showLoading() {

@@ -21,6 +21,8 @@ import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
 import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
 import sunny.koranpagi.rest.NewsApi
 import sunny.koranpagi.utils.Constant
+import sunny.koranpagi.utils.MessageEventHiburan
+import sunny.koranpagi.utils.MessageEventTechno
 import sunny.koranpagi.utils.RxBus
 
 class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
@@ -42,18 +44,20 @@ class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val game = inflater.inflate(R.layout.fragment_technology, container, false)
-        init(game)
-        return game
+        val tech = inflater.inflate(R.layout.fragment_technology, container, false)
+        init(tech)
+        return tech
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        action()
         listenEvent()
-        action()
     }
 
     override fun init(v: View) {
+        Log.d("FLOW", "Tech.init")
+
         api = NewsApi()
         pbar = v.findViewById(R.id.mainProgressBar)
         rv = v.findViewById(R.id.rv_tekno)
@@ -78,23 +82,24 @@ class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
     }
 
     override fun action() {
-        Log.d("FLOW", "Ent.action")
-        present.getTechNews(api, requireContext(), "id", "technology", Constant.TechnoFragmentBus)
+        Log.d("FLOW", "Tech.action")
+        present.getTechNews(api, "id", "technology", Constant.TechnoFragmentBus)
     }
 
     override fun updateUI(it: NewsTechno) {
+        Log.d("FLOW", "Tech.UpdateUI")
         if (it.status == "ok") {
             Toast.makeText(requireContext(), "succes", Toast.LENGTH_SHORT).show()
             Log.d("FLOW", it.status)
 
             newsss = it
-            Log.d("flow", "updateUi")
             val layoutManager12 = LinearLayoutManager(context)
 //            val layoutManager12 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = NewsTechnoAdapter(requireContext(), newsss.articles)
             rv.layoutManager = layoutManager12
             rv.adapter = adapter
             adapter.notifyDataSetChanged()
+
             if (swp.isRefreshing) swp.isRefreshing = false
         } else {
             Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()

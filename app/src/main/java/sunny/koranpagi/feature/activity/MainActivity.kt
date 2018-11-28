@@ -5,16 +5,26 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.custom_tab.*
 import sunny.koranpagi.R
 import sunny.koranpagi.adapter.TabLayoutAdapter
+import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
+import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
+import sunny.koranpagi.feature.fragment.game_fragment.EntertainmentFragment
 import sunny.koranpagi.feature.fragment.musik_fragment.SliderFragment
+import sunny.koranpagi.feature.fragment.teknologi_fragment.TechnologyFragment
+import sunny.koranpagi.rest.NewsApi
+import sunny.koranpagi.utils.Constant
 import sunny.koranpagi.utils.RxBus
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var api: NewsApi
+    lateinit var present: ContractBaseFragment.mainPresent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +32,11 @@ class MainActivity : AppCompatActivity() {
         init()
         trySetup()
         loadFragment()
+        requestData()
     }
 
     fun init() {
+        Log.d("FLOW", "Main.init")
         val fragAdapter = TabLayoutAdapter(supportFragmentManager)
         viewpager.offscreenPageLimit = 3
         viewpager.adapter = fragAdapter
@@ -45,6 +57,8 @@ class MainActivity : AppCompatActivity() {
 //        tablayout.tabGravity = fill_horizontal
 //        tablayout.tabMode = center
 
+        api = NewsApi()
+        present = PresentBaseFragment()
         RxBus.listen(String::class.java).subscribe({
             if (it == "tablayout|up") {
 //                tablayout.visibility = View.GONE
@@ -52,7 +66,6 @@ class MainActivity : AppCompatActivity() {
 //                tablayout.visibility = View.VISIBLE
             }
         })
-
     }
 
     fun setupViewPager() {
@@ -83,4 +96,12 @@ class MainActivity : AppCompatActivity() {
                     .commit()
         }
     }
+
+    fun requestData() {
+        Log.d("FLOW", "Main.ReqData")
+        present.getHiburanNews(api, "id", "entertainment", Constant.HiburanFragmentBus)
+        present.getTechNews(api, "id", "technology", Constant.TechnoFragmentBus)
+        present.getSportNews(api,"id","sport",Constant.SportFragmentBus)
+    }
+
 }
