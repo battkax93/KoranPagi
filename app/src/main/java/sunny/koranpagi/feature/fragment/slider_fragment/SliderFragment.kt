@@ -1,4 +1,4 @@
-package sunny.koranpagi.feature.fragment.musik_fragment
+package sunny.koranpagi.feature.fragment.slider_fragment
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,11 +11,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.CompoundButton
 import com.tmall.ultraviewpager.UltraViewPager
-import kotlinx.android.synthetic.main.fragment_slider.*
+import com.tmall.ultraviewpager.transformer.UltraScaleTransformer
+import kotlinx.android.synthetic.main.layout_child.*
+import org.jetbrains.anko.db.MapRowParser
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.parseSingle
+import org.jetbrains.anko.db.select
 
 import sunny.koranpagi.R
 import sunny.koranpagi.adapter.SliderViewPagerAdapter
 import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
+import sunny.koranpagi.utils.DBHelper
 
 class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
@@ -36,24 +42,22 @@ class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterV
         return slide
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun init(v: View) {
 
         ultraViewPager = v.findViewById(R.id.ultra_viewpager)
 
         ultraViewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL)
-        pagerAdapter = SliderViewPagerAdapter()
+        pagerAdapter = SliderViewPagerAdapter(requireContext())
         ultraViewPager.adapter = pagerAdapter
-        ultraViewPager.setMultiScreen(0.9f)
+        ultraViewPager.setMultiScreen(1.0f)
         ultraViewPager.setItemRatio(0.5)
         ultraViewPager.setRatio(1.5f)
         ultraViewPager.setMaxHeight(800)
+//        ultraViewPager.viewPager.pageMargin = -150
         ultraViewPager.setAutoMeasureHeight(true)
-        ultraViewPager.setPageTransformer(false, UltraDepthScale())
+//        ultraViewPager.setPageTransformer(false, UltraScaleTransformer())
         ultraViewPager.elevation = 5f
+        ultraViewPager.setBackgroundColor(resources.getColor(R.color.white_milk))
         gravity_indicator = UltraViewPager.Orientation.HORIZONTAL
 
         //initIndicator
@@ -64,7 +68,7 @@ class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterV
                 .setNormalColor(Color.WHITE)
                 .setRadius(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics).toInt())
         ultraViewPager.indicator.setGravity(Gravity.BOTTOM or Gravity.CENTER)
-        ultraViewPager.indicator.setMargin(0,0,0,100)
+        ultraViewPager.indicator.setMargin(0, 0, 0, 100)
         ultraViewPager.indicator.build()
         ultraViewPager.setInfiniteLoop(true)
         ultraViewPager.setAutoScroll(3500)
@@ -97,3 +101,4 @@ class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterV
     }
 
 }
+

@@ -14,9 +14,7 @@ import sunny.koranpagi.R
 import sunny.koranpagi.adapter.TabLayoutAdapter
 import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
 import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
-import sunny.koranpagi.feature.fragment.game_fragment.EntertainmentFragment
-import sunny.koranpagi.feature.fragment.musik_fragment.SliderFragment
-import sunny.koranpagi.feature.fragment.teknologi_fragment.TechnologyFragment
+import sunny.koranpagi.feature.fragment.slider_fragment.SliderFragment
 import sunny.koranpagi.rest.NewsApi
 import sunny.koranpagi.utils.Constant
 import sunny.koranpagi.utils.RxBus
@@ -31,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         init()
         trySetup()
-        loadFragment()
         requestData()
+        loadFragment()
     }
 
     fun init() {
@@ -101,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("FLOW", "Main.ReqData")
         present.getHiburanNews(api, "id", "entertainment", Constant.HiburanFragmentBus)
         present.getTechNews(api, "id", "technology", Constant.TechnoFragmentBus)
-        present.getSportNews(api,"id","sport",Constant.SportFragmentBus)
+        present.getSportNews(api, "id", "sport", Constant.SportFragmentBus)
     }
 
 }

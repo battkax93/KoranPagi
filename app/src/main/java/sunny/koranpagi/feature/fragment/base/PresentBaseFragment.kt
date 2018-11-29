@@ -11,6 +11,11 @@ import sunny.koranpagi.utils.Constant
 import sunny.koranpagi.utils.MessageEventHiburan
 import sunny.koranpagi.utils.MessageEventTechno
 import sunny.koranpagi.utils.RxBus
+import android.R.id.edit
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+
+
 
 class PresentBaseFragment : ContractBaseFragment.mainPresent {
 

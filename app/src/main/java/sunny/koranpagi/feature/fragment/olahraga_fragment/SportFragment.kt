@@ -1,5 +1,6 @@
 package sunny.koranpagi.feature.fragment.olahraga_fragment
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -40,6 +41,8 @@ class SportFragment : Fragment(), ContractBaseFragment.mainOlahragaView {
     lateinit var api: NewsApi
     lateinit var newsss: NewsSport
 
+    lateinit var prefs: SharedPreferences
+
     lateinit var adapter: NewsSportAdapter
     lateinit var present: ContractBaseFragment.mainPresent
 
@@ -64,10 +67,13 @@ class SportFragment : Fragment(), ContractBaseFragment.mainOlahragaView {
         Log.d("FLOW", "Sport.init")
 
         api = NewsApi()
+        present = PresentBaseFragment()
+
+        prefs = context!!.getSharedPreferences(requireContext().packageName, 0)
+
         pbar = v.findViewById(R.id.mainProgressBar)
         rv = v.findViewById(R.id.rv_sport)
         swp = v.findViewById(R.id.swp_refresh)
-        present = PresentBaseFragment()
 
         swp.setOnRefreshListener { action() }
 
@@ -92,6 +98,11 @@ class SportFragment : Fragment(), ContractBaseFragment.mainOlahragaView {
 
     override fun updateUI(it: NewsSport) {
         Log.d("FLOW", "Sport.UpdateUI")
+
+        val editor = prefs.edit()
+        editor.putString(Constant.sportNewsKey, it.articles[0].urlToImage).commit()
+        Log.d("CEK", prefs.getString(Constant.sportNewsKey, ""))
+
         if (it.status == "ok") {
 
             Toast.makeText(requireContext(), "succes", Toast.LENGTH_SHORT).show()

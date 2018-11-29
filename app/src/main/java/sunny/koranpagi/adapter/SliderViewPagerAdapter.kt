@@ -1,5 +1,6 @@
 package sunny.koranpagi.adapter
 
+import android.content.Context
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,9 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import sunny.koranpagi.R
+import sunny.koranpagi.utils.Constant
 
-class SliderViewPagerAdapter : PagerAdapter() {
+class SliderViewPagerAdapter(val ctx: Context) : PagerAdapter() {
 
     private var isMultiScr: Boolean? = null
 
@@ -26,27 +28,38 @@ class SliderViewPagerAdapter : PagerAdapter() {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val frameLayout: FrameLayout = LayoutInflater.from(container!!.context).inflate(R.layout.layout_child, null) as FrameLayout
-        FrameLayout(container.context)
-        var imgView: ImageView = frameLayout.findViewById(R.id.iv_slider_news)
-        when (position) {
-            0 -> Picasso.get().load("http://tvfiles.alphacoders.com/100/hdclearart-10.png")
-                    .into(imgView)
-            1 -> Picasso.get().load("http://cdn3.nflximg.net/images/3093/2043093.jpg")
-                    .into(imgView)
-            2 -> Picasso.get().load("http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg")
-                    .into(imgView)
-            3 -> Picasso.get().load("http://cdn3.nflximg.net/images/3093/2043093.jpg")
-                    .into(imgView)
-            4 -> Picasso.get().load("http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg")
-                    .into(imgView)
+        val frameLayout: FrameLayout = LayoutInflater.from(container.context).inflate(R.layout.layout_child, null) as FrameLayout
+        try {
+            FrameLayout(container.context)
+            val imgView: ImageView = frameLayout.findViewById(R.id.iv_slider_news)
+            when (position) {
+                0 -> Picasso.get().load(loadUrl(Constant.EntNewsKey, ctx))
+                        .into(imgView)
+                1 -> Picasso.get().load(loadUrl(Constant.techNewsKey, ctx))
+                        .into(imgView)
+                2 -> Picasso.get().load(loadUrl(Constant.sportNewsKey, ctx))
+                        .into(imgView)
+                3 -> Picasso.get().load("http://cdn3.nflximg.net/images/3093/2043093.jpg")
+                        .into(imgView)
+                4 -> Picasso.get().load("http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg")
+                        .into(imgView)
+            }
+            container.addView(frameLayout)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        container.addView(frameLayout)
         return frameLayout
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         val view = `object` as FrameLayout
-        container!!.removeView(view)    }
+        container.removeView(view)
+    }
+
+
+    fun loadUrl(s: String, ctx: Context): String {
+        val prefs = ctx.getSharedPreferences(ctx.packageName, 0)
+        return prefs.getString(s, "")
+    }
 
 }

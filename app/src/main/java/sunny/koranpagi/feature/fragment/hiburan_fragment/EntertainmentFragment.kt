@@ -1,5 +1,6 @@
 package sunny.koranpagi.feature.fragment.game_fragment
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -37,6 +38,8 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
     lateinit var api: NewsApi
     lateinit var newsss: NewsHiburan
 
+    lateinit var prefs: SharedPreferences
+
     lateinit var adapter: NewsHiburanAdapter
     lateinit var present: ContractBaseFragment.mainPresent
 
@@ -61,13 +64,15 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
     override fun init(v: View) {
         Log.d("FLOW", "Ent.Init")
         api = NewsApi()
+        present = PresentBaseFragment()
+
+        prefs = context!!.getSharedPreferences(requireContext().packageName, 0)
+
         pbar = v.findViewById(R.id.mainProgressBar)
         rv = v.findViewById(R.id.rv_hiburan)
         swp = v.findViewById(R.id.swp_refresh)
-        present = PresentBaseFragment()
 
         swp.setOnRefreshListener { action() }
-
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -90,6 +95,11 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
 
     override fun updateUI(it: NewsHiburan) {
         Log.d("FLOW", "Ent.UpdateUI")
+
+        val editor = prefs.edit()
+        editor.putString(Constant.EntNewsKey, it.articles[0].urlToImage).commit()
+        Log.d("cek", prefs.getString(Constant.EntNewsKey, ""))
+
         if (it.status == "ok") {
             Toast.makeText(requireContext(), "succes", Toast.LENGTH_SHORT).show()
             Log.d("FLOW", it.status)

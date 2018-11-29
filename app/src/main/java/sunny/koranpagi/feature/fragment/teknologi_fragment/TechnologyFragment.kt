@@ -24,6 +24,11 @@ import sunny.koranpagi.utils.Constant
 import sunny.koranpagi.utils.MessageEventHiburan
 import sunny.koranpagi.utils.MessageEventTechno
 import sunny.koranpagi.utils.RxBus
+import android.R.id.edit
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+
 
 class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
 
@@ -34,8 +39,11 @@ class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
     lateinit var api: NewsApi
     lateinit var newsss: NewsTechno
 
+    lateinit var prefs: SharedPreferences
+
     lateinit var adapter: NewsTechnoAdapter
     lateinit var present: ContractBaseFragment.mainPresent
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,13 +67,15 @@ class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
         Log.d("FLOW", "Tech.init")
 
         api = NewsApi()
+        present = PresentBaseFragment()
+
+        prefs = context!!.getSharedPreferences(requireContext().packageName, 0)
+
         pbar = v.findViewById(R.id.mainProgressBar)
         rv = v.findViewById(R.id.rv_tekno)
         swp = v.findViewById(R.id.swp_refresh)
-        present = PresentBaseFragment()
 
         swp.setOnRefreshListener { action() }
-
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -88,6 +98,11 @@ class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
 
     override fun updateUI(it: NewsTechno) {
         Log.d("FLOW", "Tech.UpdateUI")
+
+        val editor = prefs.edit()
+        editor.putString(Constant.techNewsKey, it.articles[0].urlToImage).commit()
+        Log.d("cek", prefs.getString(Constant.techNewsKey, ""))
+
         if (it.status == "ok") {
             Toast.makeText(requireContext(), "succes", Toast.LENGTH_SHORT).show()
             Log.d("FLOW", it.status)

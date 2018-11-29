@@ -1,5 +1,7 @@
 package sunny.koranpagi.utils
 
+import android.content.Context
+
 /**
  * Created by Wayan-MECS on 11/26/2018.
  */
@@ -17,5 +19,10 @@ class Constant {
         const val MusicFragmentBus = "MusicBusEvent"
         const val SportFragmentBus = "SportBusEvent"
         const val TechnoFragmentBus = "TechnoBusEvent"
+
+        //SharedPrefKey
+        const val techNewsKey = "TechSP"
+        const val sportNewsKey = "SportSP"
+        const val EntNewsKey = "EntSP"
     }
 }
