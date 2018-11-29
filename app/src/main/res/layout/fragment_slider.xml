@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     tools:context=".feature.fragment.musik_fragment.SliderFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.tmall.ultraviewpager.UltraViewPager
+        android:id="@+id/ultra_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="music fragment" />
+        android:background="@color/colorTextDisable" />
 
 </FrameLayout>
