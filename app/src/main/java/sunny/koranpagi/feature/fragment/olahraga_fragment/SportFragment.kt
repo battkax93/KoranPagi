@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import org.jetbrains.anko.custom.async
 
 import sunny.koranpagi.R
 import sunny.koranpagi.adapter.NewsSportAdapter
@@ -93,6 +94,7 @@ class SportFragment : Fragment(), ContractBaseFragment.mainOlahragaView {
 
     override fun action() {
         Log.d("FLOW", "Sport.action")
+
         present.getTechNews(api, "id", "sport", Constant.SportFragmentBus)
     }
 

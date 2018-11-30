@@ -1,6 +1,9 @@
 package sunny.koranpagi.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +14,7 @@ import com.squareup.picasso.Picasso
 import sunny.koranpagi.R
 import sunny.koranpagi.utils.Constant
 
-class SliderViewPagerAdapter(val ctx: Context) : PagerAdapter() {
+class SliderViewPagerAdapter(val ctx: Context, val act: Activity) : PagerAdapter() {
 
     private var isMultiScr: Boolean? = null
 
@@ -32,9 +35,10 @@ class SliderViewPagerAdapter(val ctx: Context) : PagerAdapter() {
         try {
             FrameLayout(container.context)
             val imgView: ImageView = frameLayout.findViewById(R.id.iv_slider_news)
+            imgView.setOnClickListener { goToChromeTabs("http://google.com") }
             when (position) {
-                0 -> Picasso.get().load(loadUrl(Constant.EntNewsKey, ctx))
-                        .into(imgView)
+                0 -> Picasso.get().load(loadUrl(Constant.EntNewsKey, ctx)).into(imgView)
+
                 1 -> Picasso.get().load(loadUrl(Constant.techNewsKey, ctx))
                         .into(imgView)
                 2 -> Picasso.get().load(loadUrl(Constant.sportNewsKey, ctx))
@@ -62,4 +66,12 @@ class SliderViewPagerAdapter(val ctx: Context) : PagerAdapter() {
         return prefs.getString(s, "")
     }
 
+    private fun goToChromeTabs(url: String) {
+        val customTabsIntent = CustomTabsIntent.Builder().build()
+        CustomTabActivityHelper.openCustomTab(act, // activity
+                customTabsIntent,
+                Uri.parse(url),
+                WebviewFallback()
+        )
+    }
 }

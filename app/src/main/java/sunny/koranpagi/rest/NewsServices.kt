@@ -16,9 +16,8 @@ interface NewsServices {
                     @Query("apiKey") apiKey: String): Single<NewsGames>
 
     @GET(Constant.NEWS_API_KEYS_COUNTRY)
-    fun getNewsHiburan(@Query("country") country: String,
-                       @Query("category") category: String,
-                       @Query("apiKey") apiKey: String): Observable<NewsHiburan>
+    fun getNewsHiburan(@Query("country") country: String = "id",
+                       @Query("category") category: String): Observable<NewsHiburan>
 
     @GET(Constant.NEWS_API_KEYS_COUNTRY)
     fun getMusicNews(@Query("country") country: String,
@@ -27,11 +26,9 @@ interface NewsServices {
 
     @GET(Constant.NEWS_API_KEYS_COUNTRY)
     fun getSportNews(@Query("country") country: String,
-                    @Query("category") category: String,
-                    @Query("apiKey") apiKey: String): Single<NewsSport>
+                    @Query("category") category: String): Single<NewsSport>
 
     @GET(Constant.NEWS_API_KEYS_COUNTRY)
     fun getTechnoNews(@Query("country") country: String,
-                      @Query("category") category: String,
-                      @Query("apiKey") apiKey: String): Observable<NewsTechno>
+                      @Query("category") category: String): Observable<NewsTechno>
 }

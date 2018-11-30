@@ -3,11 +3,9 @@ package sunny.koranpagi.feature.fragment.slider_fragment
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.CompoundButton
 import com.tmall.ultraviewpager.UltraViewPager
@@ -22,6 +20,11 @@ import sunny.koranpagi.R
 import sunny.koranpagi.adapter.SliderViewPagerAdapter
 import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
 import sunny.koranpagi.utils.DBHelper
+import sunny.koranpagi.feature.activity.MainActivity
+import android.content.Intent
+import android.widget.AdapterView.OnItemClickListener
+
+
 
 class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
@@ -47,7 +50,7 @@ class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterV
         ultraViewPager = v.findViewById(R.id.ultra_viewpager)
 
         ultraViewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL)
-        pagerAdapter = SliderViewPagerAdapter(requireContext())
+        pagerAdapter = SliderViewPagerAdapter(requireContext(),requireActivity())
         ultraViewPager.adapter = pagerAdapter
         ultraViewPager.setMultiScreen(1.0f)
         ultraViewPager.setItemRatio(0.5)
@@ -75,7 +78,7 @@ class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterV
     }
 
     override fun action() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun updateUI() {

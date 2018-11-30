@@ -19,14 +19,12 @@ import android.content.SharedPreferences
 
 class PresentBaseFragment : ContractBaseFragment.mainPresent {
 
-    private val APIKEYS = Constant.NEWS_KEY
-
     override fun getNewsGames(api: NewsApi, ctx: Context, country: String, category: String, busEventKey: String) {
     }
 
     override fun getHiburanNews(api: NewsApi, country: String, category: String, busEventKey: String) {
         RxBus.publish("loading")
-        api.services.getNewsHiburan(country, category, APIKEYS)
+        api.services.getNewsHiburan(country, category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -42,7 +40,7 @@ class PresentBaseFragment : ContractBaseFragment.mainPresent {
 
     override fun getTechNews(api: NewsApi, country: String, category: String, busEventKey: String) {
         RxBus.publish("loading")
-        api.services.getTechnoNews(country, category, APIKEYS)
+        api.services.getTechnoNews(country, category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -55,7 +53,7 @@ class PresentBaseFragment : ContractBaseFragment.mainPresent {
 
     override fun getSportNews(api: NewsApi, country: String, category: String, busEventKey: String) {
         RxBus.publish("loading")
-        api.services.getSportNews(country, category, APIKEYS)
+        api.services.getSportNews(country,category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
