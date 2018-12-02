@@ -1,7 +1,5 @@
 package sunny.koranpagi.utils
 
-import android.content.Context
-
 /**
  * Created by Wayan-MECS on 11/26/2018.
  */
@@ -9,7 +7,7 @@ class Constant {
 
     companion object {
         //Url
-        const val NEWS_KEY: String = "64bc799f3ed7445ab748af06c8cf6767"
+        const val NEWS_KEY: String = "3403dd66a7b04619a9f32a438675abe5"
         const val NEWS_API_URL: String = "http://newsapi.org/v2/"
         const val NEWS_API_KEYS_COUNTRY: String = "top-headlines"
 

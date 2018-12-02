@@ -2,9 +2,9 @@ package sunny.koranpagi.feature.activity
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.custom_tab.*
 import sunny.koranpagi.R
 import sunny.koranpagi.adapter.TabLayoutAdapter
-import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
-import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
+import sunny.koranpagi.feature.base.ContractBaseFragment
+import sunny.koranpagi.feature.base.PresentBaseFragment
 import sunny.koranpagi.feature.fragment.slider_fragment.SliderFragment
 import sunny.koranpagi.rest.NewsApi
 import sunny.koranpagi.utils.Constant

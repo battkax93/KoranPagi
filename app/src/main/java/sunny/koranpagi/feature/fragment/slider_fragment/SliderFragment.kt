@@ -3,27 +3,15 @@ package sunny.koranpagi.feature.fragment.slider_fragment
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.util.TypedValue
 import android.view.*
 import android.widget.AdapterView
 import android.widget.CompoundButton
 import com.tmall.ultraviewpager.UltraViewPager
-import com.tmall.ultraviewpager.transformer.UltraScaleTransformer
-import kotlinx.android.synthetic.main.layout_child.*
-import org.jetbrains.anko.db.MapRowParser
-import org.jetbrains.anko.db.insert
-import org.jetbrains.anko.db.parseSingle
-import org.jetbrains.anko.db.select
 
 import sunny.koranpagi.R
 import sunny.koranpagi.adapter.SliderViewPagerAdapter
-import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
-import sunny.koranpagi.utils.DBHelper
-import sunny.koranpagi.feature.activity.MainActivity
-import android.content.Intent
-import android.widget.AdapterView.OnItemClickListener
-
+import sunny.koranpagi.feature.base.ContractBaseFragment
 
 
 class SliderFragment : Fragment(), ContractBaseFragment.mainSliderView, AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {

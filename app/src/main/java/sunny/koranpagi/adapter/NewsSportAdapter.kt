@@ -1,9 +1,11 @@
 package sunny.koranpagi.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.news_item.view.*
 import sunny.koranpagi.R
 import sunny.koranpagi.entity.NewsSport
+import sunny.koranpagi.feature.custome_chrome_tab.CustomTabActivityHelper
+import sunny.koranpagi.feature.custome_chrome_tab.WebviewFallback
 
-class NewsSportAdapter(val ctx: Context, var newsList: List<NewsSport.Article>) : RecyclerView.Adapter<NewsSportAdapter.ViewHolder>() {
+class NewsSportAdapter(val ctx: Context,val act: Activity, var newsList: List<NewsSport.Article>) : RecyclerView.Adapter<NewsSportAdapter.ViewHolder>() {
 
     inner class ViewHolder(itView: View) : RecyclerView.ViewHolder(itView) {
         var ImagesNews = itView.iv_news
@@ -27,8 +31,7 @@ class NewsSportAdapter(val ctx: Context, var newsList: List<NewsSport.Article>) 
             NewsDesc.text = news.description
 
             itemView.setOnClickListener {
-                //                sendData(news.urlToImage, news.description, news.url, news.title)
-                Log.d("FLOW", "cv clicked")
+                goToChromeTabs(news.url)
             }
         }
     }
@@ -49,4 +52,12 @@ class NewsSportAdapter(val ctx: Context, var newsList: List<NewsSport.Article>) 
         holder.bind(newsList[position])
     }
 
+    private fun goToChromeTabs(url: String) {
+        val customTabsIntent = CustomTabsIntent.Builder().build()
+        CustomTabActivityHelper.openCustomTab(act, // activity
+                customTabsIntent,
+                Uri.parse(url),
+                WebviewFallback()
+        )
+    }
 }

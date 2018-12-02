@@ -12,15 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import org.jetbrains.anko.custom.async
 
 import sunny.koranpagi.R
 import sunny.koranpagi.adapter.NewsSportAdapter
-import sunny.koranpagi.adapter.NewsTechnoAdapter
 import sunny.koranpagi.entity.NewsSport
-import sunny.koranpagi.entity.NewsTechno
-import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
-import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
+import sunny.koranpagi.feature.base.ContractBaseFragment
+import sunny.koranpagi.feature.base.PresentBaseFragment
 import sunny.koranpagi.rest.NewsApi
 import sunny.koranpagi.utils.Constant
 import sunny.koranpagi.utils.RxBus
@@ -111,7 +108,7 @@ class SportFragment : Fragment(), ContractBaseFragment.mainOlahragaView {
 
             newsss = it
             val layoutManager12 = LinearLayoutManager(context)
-            adapter = NewsSportAdapter(requireContext(), newsss.articles)
+            adapter = NewsSportAdapter(requireContext(),requireActivity(), newsss.articles)
             rv.layoutManager = layoutManager12
             rv.adapter = adapter
             adapter.notifyDataSetChanged()

@@ -1,5 +1,7 @@
 package sunny.koranpagi.feature.fragment.teknologi_fragment
 
+import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,23 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-
 import sunny.koranpagi.R
-import sunny.koranpagi.adapter.NewsHiburanAdapter
 import sunny.koranpagi.adapter.NewsTechnoAdapter
-import sunny.koranpagi.entity.NewsHiburan
 import sunny.koranpagi.entity.NewsTechno
-import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
-import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
+import sunny.koranpagi.feature.base.ContractBaseFragment
+import sunny.koranpagi.feature.base.PresentBaseFragment
 import sunny.koranpagi.rest.NewsApi
 import sunny.koranpagi.utils.Constant
-import sunny.koranpagi.utils.MessageEventHiburan
-import sunny.koranpagi.utils.MessageEventTechno
 import sunny.koranpagi.utils.RxBus
-import android.R.id.edit
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 
 
 class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
@@ -96,6 +89,7 @@ class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
         present.getTechNews(api, "id", "technology", Constant.TechnoFragmentBus)
     }
 
+    @SuppressLint("ApplySharedPref")
     override fun updateUI(it: NewsTechno) {
         Log.d("FLOW", "Tech.UpdateUI")
 
@@ -110,7 +104,7 @@ class TechnologyFragment : Fragment(), ContractBaseFragment.mainTeknologiView {
             newsss = it
             val layoutManager12 = LinearLayoutManager(context)
 //            val layoutManager12 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            adapter = NewsTechnoAdapter(requireContext(), newsss.articles)
+            adapter = NewsTechnoAdapter(requireContext(),requireActivity(), newsss.articles)
             rv.layoutManager = layoutManager12
             rv.adapter = adapter
             adapter.notifyDataSetChanged()

@@ -43,7 +43,7 @@ class NewsApi {
 
 
             val ok = OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
+//                    .addInterceptor(interceptor)
                     .addInterceptor(requestInterceptor)
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)

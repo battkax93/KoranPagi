@@ -1,31 +1,26 @@
 package sunny.koranpagi.feature.fragment.game_fragment
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 
 import sunny.koranpagi.R
 import sunny.koranpagi.adapter.NewsHiburanAdapter
-import sunny.koranpagi.entity.NewsGames
 import sunny.koranpagi.entity.NewsHiburan
-import sunny.koranpagi.feature.activity.MainActivity
-import sunny.koranpagi.feature.fragment.base.ContractBaseFragment
-import sunny.koranpagi.feature.fragment.base.PresentBaseFragment
+import sunny.koranpagi.feature.base.ContractBaseFragment
+import sunny.koranpagi.feature.base.PresentBaseFragment
 import sunny.koranpagi.rest.NewsApi
 import sunny.koranpagi.utils.Constant
-import sunny.koranpagi.utils.MessageEventHiburan
 import sunny.koranpagi.utils.RxBus
 
 
@@ -93,12 +88,14 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
         present.getHiburanNews(api, "id", "entertainment", Constant.HiburanFragmentBus)
     }
 
+    @SuppressLint("ApplySharedPref")
     override fun updateUI(it: NewsHiburan) {
         Log.d("FLOW", "Ent.UpdateUI")
 
         val editor = prefs.edit()
         editor.putString(Constant.EntNewsKey, it.articles[0].urlToImage).commit()
         Log.d("cek", prefs.getString(Constant.EntNewsKey, ""))
+
 
         if (it.status == "ok") {
             Toast.makeText(requireContext(), "succes", Toast.LENGTH_SHORT).show()
@@ -107,7 +104,7 @@ class EntertainmentFragment : Fragment(), ContractBaseFragment.mainHiburanView {
             newsss = it
             val layoutManager12 = LinearLayoutManager(context)
 //            val layoutManager12 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            adapter = NewsHiburanAdapter(requireContext(), newsss.articles)
+            adapter = NewsHiburanAdapter(requireContext(),requireActivity(), newsss.articles)
             rv.layoutManager = layoutManager12
             rv.adapter = adapter
             adapter.notifyDataSetChanged()

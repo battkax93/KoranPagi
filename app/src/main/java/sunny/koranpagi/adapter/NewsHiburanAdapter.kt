@@ -1,7 +1,10 @@
 package sunny.koranpagi.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,8 +14,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.news_item.view.*
 import sunny.koranpagi.R
 import sunny.koranpagi.entity.NewsHiburan
+import sunny.koranpagi.feature.custome_chrome_tab.CustomTabActivityHelper
+import sunny.koranpagi.feature.custome_chrome_tab.WebviewFallback
 
-class NewsHiburanAdapter(val ctx: Context, var newsList: List<NewsHiburan.Article>) : RecyclerView.Adapter<NewsHiburanAdapter.ViewHolder>() {
+class NewsHiburanAdapter(val ctx: Context,val act: Activity, var newsList: List<NewsHiburan.Article>) : RecyclerView.Adapter<NewsHiburanAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(ctx).inflate(R.layout.news_item, p0, false))
@@ -38,8 +43,7 @@ class NewsHiburanAdapter(val ctx: Context, var newsList: List<NewsHiburan.Articl
             NewsDesc.text = news.description
 
             itemView.setOnClickListener {
-                //                sendData(news.urlToImage, news.description, news.url, news.title)
-                Log.d("FLOW", "cv clicked")
+                goToChromeTabs(news.url)
             }
         }
     }
@@ -48,6 +52,15 @@ class NewsHiburanAdapter(val ctx: Context, var newsList: List<NewsHiburan.Articl
     fun convertDate(s: String): String {
         var sdf = s.substring(0,9).split("-")
         return sdf[2] + "/" + sdf[1] + "/" + sdf[0]
+    }
+
+    private fun goToChromeTabs(url: String) {
+        val customTabsIntent = CustomTabsIntent.Builder().build()
+        CustomTabActivityHelper.openCustomTab(act, // activity
+                customTabsIntent,
+                Uri.parse(url),
+                WebviewFallback()
+        )
     }
 
     fun sendData(urlNewsImage: String, newsDesc: String, sourceNews: String, titleNews: String) {

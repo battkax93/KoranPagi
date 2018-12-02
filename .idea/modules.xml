@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KoranPagi.iml" filepath="$PROJECT_DIR$/KoranPagi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/KoranPagi.iml" filepath="$PROJECT_DIR$/.idea/KoranPagi.iml" />
+      <module fileurl="file://D:\project skripsi\tutorial android\template\KoranPagi\KoranPagi.iml" filepath="D:\project skripsi\tutorial android\template\KoranPagi\KoranPagi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
