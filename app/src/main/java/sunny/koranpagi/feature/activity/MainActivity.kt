@@ -3,6 +3,7 @@ package sunny.koranpagi.feature.activity
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         trySetup()
         requestData()
         loadFragment()
+        appBarListener()
     }
 
     fun init() {
@@ -100,6 +102,28 @@ class MainActivity : AppCompatActivity() {
         present.getHiburanNews(api, "id", "entertainment", Constant.HiburanFragmentBus)
         present.getTechNews(api, "id", "technology", Constant.TechnoFragmentBus)
         present.getSportNews(api, "id", "sport", Constant.SportFragmentBus)
+    }
+
+    fun appBarListener() {
+        setSupportActionBar(toolbar)
+
+        toolbar_layout.title = this.title
+//        toolbar_layout.setb(Color.WHITE)
+//        toolbar_layout.setBackgroundColor(Color.TRANSPARENT)
+
+        id_appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+                //  Collapse
+                Log.d("flow", "collapse")
+                toolbar.visibility = View.VISIBLE
+                toolbar_layout.title = this.title
+            } else {
+                //Expanded
+                Log.d("flow", "expanded")
+                toolbar.visibility = View.INVISIBLE
+                toolbar_layout.title = " "
+            }
+        })
     }
 
 }
